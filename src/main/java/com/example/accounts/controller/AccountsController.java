@@ -2,9 +2,12 @@ package com.example.accounts.controller;
 
 import com.example.accounts.constants.AccountsConstants;
 import com.example.accounts.dto.CustomerDTO;
+import com.example.accounts.dto.ErrorResponseDTO;
 import com.example.accounts.dto.ResponseDTO;
 import com.example.accounts.service.IAccountsService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -71,7 +74,10 @@ public class AccountsController {
             ),
             @ApiResponse(
                     responseCode = "500",
-                    description = "HTTP Status INTERNAL SERVER ERROR"
+                    description = "HTTP Status INTERNAL SERVER ERROR",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDTO.class)
+                            )
             )
     })
     @PutMapping("/update")
