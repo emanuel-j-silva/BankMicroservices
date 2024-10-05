@@ -1,4 +1,4 @@
-package com.example.loans.entity.audit;
+package com.example.loans.audit;
 
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
