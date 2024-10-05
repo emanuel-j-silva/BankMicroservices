@@ -10,7 +10,6 @@ import com.example.loans.repository.LoansRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.ResolutionException;
 import java.util.Optional;
 import java.util.Random;
 
@@ -51,11 +50,20 @@ public class LoansServiceImpl implements ILoansService{
 
     @Override
     public boolean updateLoan(LoansDTO loansDTO) {
-        return false;
+        Loans loan = loansRepository.findByMobileNumber(loansDTO.getMobileNumber())
+                .orElseThrow(()-> new ResourceNotFoundException("Loan","mobileNumber", loansDTO.getMobileNumber()));
+        LoansMapper.mapToLoans(loansDTO,loan);
+
+        loansRepository.save(loan);
+        return true;
     }
 
     @Override
     public boolean deleteLoan(String mobileNumber) {
-        return false;
+        Loans loan = loansRepository.findByMobileNumber(mobileNumber)
+                .orElseThrow(()-> new ResourceNotFoundException("Loan","mobileNumber",mobileNumber));
+
+        loansRepository.delete(loan);
+        return true;
     }
 }
