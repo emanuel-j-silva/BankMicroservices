@@ -4,10 +4,13 @@ import com.example.loans.constants.LoansConstants;
 import com.example.loans.dto.LoansDTO;
 import com.example.loans.entity.Loans;
 import com.example.loans.exception.LoanAlreadyExistsException;
+import com.example.loans.exception.ResourceNotFoundException;
+import com.example.loans.mapper.LoansMapper;
 import com.example.loans.repository.LoansRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.lang.module.ResolutionException;
 import java.util.Optional;
 import java.util.Random;
 
@@ -40,7 +43,10 @@ public class LoansServiceImpl implements ILoansService{
 
     @Override
     public LoansDTO fetchLoan(String mobileNumber) {
-        return null;
+        Loans loan = loansRepository.findByMobileNumber(mobileNumber)
+                .orElseThrow(()-> new ResourceNotFoundException("Loan","mobileNumber",mobileNumber));
+
+        return LoansMapper.mapToLoansDTO(loan,new LoansDTO());
     }
 
     @Override
