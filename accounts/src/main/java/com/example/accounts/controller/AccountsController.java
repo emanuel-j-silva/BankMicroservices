@@ -1,6 +1,7 @@
 package com.example.accounts.controller;
 
 import com.example.accounts.constants.AccountsConstants;
+import com.example.accounts.dto.AccountsContactInfoDTO;
 import com.example.accounts.dto.CustomerDTO;
 import com.example.accounts.dto.ErrorResponseDTO;
 import com.example.accounts.dto.ResponseDTO;
@@ -39,6 +40,9 @@ public class AccountsController {
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private AccountsContactInfoDTO accountsContactInfoDTO;
 
     @Autowired
     public AccountsController(IAccountsService iAccountsService) {
@@ -161,8 +165,8 @@ public class AccountsController {
     }
 
     @Operation(
-            summary = "Get Java version",
-            description = "Get Java version details that is installed into accounts microservice"
+            summary = "Get Contact info",
+            description = "Contact info details that can be reached out in case of any issues"
     )
     @ApiResponses({
             @ApiResponse(
@@ -174,9 +178,9 @@ public class AccountsController {
                     description = "HTTP Status INTERNAL SERVER ERROR"
             )
     })
-    @GetMapping("/java-version")
-    public ResponseEntity<String> getJavaVersion(){
-        return ResponseEntity.status(HttpStatus.OK).body(environment.getProperty("JAVA_HOME"));
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfoDTO> getContactInfo(){
+        return ResponseEntity.status(HttpStatus.OK).body(accountsContactInfoDTO);
     }
 
 }

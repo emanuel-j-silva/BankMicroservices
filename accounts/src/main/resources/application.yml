@@ -17,3 +17,12 @@ spring:
 
 build:
   version: "1.0"
+
+  accounts:
+    message: "Welcome to Bank accounts related local APIs "
+    contactDetails:
+      name: "John Doe - Developer"
+      email: "john@bank.com"
+    onCallSupport:
+      - (00) 555-1234
+      - (00) 523-1345
